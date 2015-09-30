@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ -z "$ENHANCER_VERSION" ]; then
+    /usr/lib/enhancer/.env/bin/pip install --upgrade gl-enhancer
+else
+	/usr/lib/enhancer/.env/bin/pip install --upgrade gl-enhancer==$ENHANCER_VERSION
+fi
+
+/usr/lib/enhancer/.env/bin/pip install --upgrade "gunicorn"
+cp /usr/lib/enhancer/.env/bin/enhancer /usr/lib/enhancer/.env/bin/enhancer.py
+/usr/lib/enhancer/.env/bin/python /usr/lib/enhancer/.env/bin/gunicorn enhancer:app -w 6 -b 0.0.0.0:5000 --log-level=debug
