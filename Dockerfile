@@ -1,18 +1,17 @@
 FROM alejandrofcarrera/phusion.python
 MAINTAINER Alejandro F. Carrera
 
-ENV HOME /usr/lib/enhancer
+ENV HOME /usr/lib/glenhancer
 
-# Create directories & virtual env for the Planner
+# Create directories & virtual env
 RUN virtualenv $HOME/.env
-WORKDIR /usr/lib/enhancer
-RUN /usr/lib/enhancer/.env/bin/pip install --upgrade gl-enhancer
+WORKDIR /usr/lib/glenhancer
 
 # Configure runit
 ADD ./my_init.d/ /etc/my_init.d/
-ONBUILD ADD ./my_init.d/ /etc/my_init.d/
+ONBUILD ./my_init.d/ /etc/my_init.d/
 
 CMD ["/sbin/my_init"]
 
-VOLUME ["/usr/lib/enhancer"]
+VOLUME ["/usr/lib/glenhancer"]
 EXPOSE 5000
