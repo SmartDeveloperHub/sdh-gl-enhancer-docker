@@ -13,5 +13,7 @@ ONBUILD ./my_init.d/ /etc/my_init.d/
 
 CMD ["/sbin/my_init"]
 
+# Configure volume
 VOLUME ["/usr/lib/glenhancer"]
+
 EXPOSE 5000
